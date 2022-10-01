@@ -14,9 +14,8 @@
                         <ol class="breadcrumb mb-4">
                             <li class="breadcrumb-item active">Dashboard</li>
                       </ol>                       
-                        <a style = "
-                        margin-bottom: 10px;                 
-                        "href="#myModal" class="btn btn-info"  data-toggle="modal">Add User</a>
+                        <a style ="margin-bottom: 10px;"                
+                        href="#myModal" class="btn btn-info"  data-toggle="modal">Add User</a>
                         <div id="myModal" class="modal fade">
                             <div class="modal-dialog modal-login">
                                 <div class="modal-content">
@@ -49,7 +48,6 @@
                                                 </select>				
                                         </div>
                                         <div class="modal-footer">
-                                            {{-- <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button> --}}
                                             <button type="submit" class="btn btn-primary">Submit</button>
                                           </div>
                                         </form>
@@ -72,12 +70,10 @@
                                         @csrf
                                         @method('PUT')
                                         <div class="form-group">
-                                            <input type="text" name="name" id="name" value="{{ $user->name }}" class="form-control" placeholder="Name">
-                                          
+                                            <input type="text" name="name" id="name" value="{{ $user->name }}" class="form-control" placeholder="Name">                                      
                                         </div>
                                         <div class="form-group">
                                             <input type="text"  name="email" id="email" value="{{ $user->email }}" class="form-control" placeholder="Email" readonly>	
-                                            				
                                         </div>
                                         {{-- <div class="form-group">
                                             <label id="role" name="role" >Select Role:</label>
