@@ -96,7 +96,7 @@
                                     List of all Users
                                 </div>
                                 <div class="card-body">
-                                    <table  id="myTable">
+                                    <table id="myTable" class="ui celled table" style="width:100%">
                                         <thead>                                          
                                             <th>Name</th>
                                             <th>Role</th>
@@ -137,15 +137,6 @@
                 </footer>
             </div>
 @endsection()
-@section('script')
-$(document).ready(function() {
-    $('#myTable').DataTable( {
-        dom: 'Bfrtip',
-        buttons: [
-            'copy', 'csv', 'excel', 'pdf', 'print'
-        ]
-    } );
-} );
-@endsection
+
 
 

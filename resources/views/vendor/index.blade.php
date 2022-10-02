@@ -21,7 +21,7 @@
                                     List of all Vendors
                                 </div>
                                 <div class="card-body">
-                                    <table  id="datatablesSimple">
+                                    <table id="myTable" class="mdl-data-table" style="width:100%">
                                         <thead>                                          
                                             <th>ID</th>
                                             <th>User ID</th>
@@ -43,7 +43,7 @@
                                                 <td>{{ \Carbon\Carbon::parse($vendor->date_of_birth)->format('M j Y') }}</td>
                                                 <td>{{ $vendor->status }}</td>
                                                 <td>
-                                                    <a href="{{ route('add-vendor',$vendor->id)}}" class="btn btn-primary btn-sm"><i class="fa fa-plus" aria-hidden="true"></i>
+                                                    <a href="{{ route('add-vendor',$vendor->id)}}" class="btn btn-primary btn-sm"><i class="fa fa-plus" aria-hidden="true"></i></a> 
                                                     <a href="{{ route('edit-vendor',$vendor->id)}}"class="btn btn-primary btn-sm"><i class="fa-solid fa-pen-to-square"></i></a>
                                                     <a href="{{ route('delete-vendor',$vendor->id) }}" onclick="return confirm('Are you sure you want to delete this vendor?');" class="btn btn-danger btn-sm"><i class="fa fa-trash" aria-hidden="true"></i></a>
                                                     
@@ -71,5 +71,5 @@
                         </div>
                     </footer>
                 </div>
-    @endsection()
+@endsection()
 
