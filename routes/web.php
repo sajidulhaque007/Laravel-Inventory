@@ -24,4 +24,9 @@ Route::put('update-user/{id}', [AdminController::class, 'updateUser'])->name('up
 Route::get('delete-user/{id}', [AdminController::class, 'deleteUser'])->name('delete-user');
 
 Route::get('/vendors',[AdminController::class, 'vendor'])->name('vendor');
+Route::post('/addvendor',[AdminController::class, 'addVendor'])->name('add-vendor');
+Route::get('/edit-vendor/{id}',[AdminController::class, 'editVendor'])->name('edit-vendor');
+Route::put('/update-vendor/{id}',[AdminController::class, 'updateVendor'])->name('update-vendor');
+Route::get('/delete-vendor/{id}',[AdminController::class, 'deleteVendor'])->name('delete-vendor');
+
 

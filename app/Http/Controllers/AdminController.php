@@ -81,5 +81,16 @@ class AdminController extends Controller
             ]);
         }
 
-    
+        public function addVendor(){
+            
+    }
+        public function editVendor(){
+
+    }
+        public function updateVendor(){
+
+    }
+        public function deleteVendor(){
+
+    }
 }
