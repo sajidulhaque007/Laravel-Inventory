@@ -40,7 +40,7 @@ $('#addUser').validate({
 	    },
 	   
 	    email: {
-	      required: "We need your email address to contact you",
+	      required: "Enter your email address",
 	      email: "Your email address must be in the format of name@domain.com",
 	      remote:"Email already in use. Try with different email"
 	    },

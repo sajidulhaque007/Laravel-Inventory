@@ -86,42 +86,41 @@
                                             <button type="submit" class="btn btn-primary">Update</button>
                                           </div>
                                         </form>
+                                      </div>
                                     </div>
                                 </div>
-                            </div>
-                        </div> 
-                        @endforeach
+                            </div> 
+                            @endforeach
                             <div class="card mb-4">
                                 <div class="card-header">
                                     List of all Users
                                 </div>
                                 <div class="card-body">
-                                    <table  id="datatablesSimple">
+                                    <table  id="myTable">
                                         <thead>                                          
                                             <th>Name</th>
                                             <th>Role</th>
                                             <th>Email</th>
                                             <th>Start date</th>
                                             <th>Actions</th>                                       
-                                    </thead>
-                                    <tbody>
-                                        @foreach ($users as $user)                                      
-                                        <tr>
-                                            <td>{{ $user->name }}</td>
-                                            <td>{{ $user->role }}</td>
-                                            <td>{{ $user->email }}</td>
-                                            <td>{{ $user->created_at }}</td>
-                                            <td>
-                                                <a href="{{ route('edit-user',$user->id)}}" data-target="#modal-edit-users{{ $user->id }}" id="modal-edit" data-toggle="modal" class="btn btn-primary btn-sm">Edit</a>
-                                                <a href="{{ route('delete-user',$user->id) }}" onclick="return confirm('Are you sure you want to delete this user?');" class="btn btn-danger btn-sm">Delete</a>
-                                            </td>
-                                        </tr>
-                                        @endforeach                                  
-                                    </tbody>
-                                </table>
-                                {{-- {{ $user->links() }} --}}
-                            </div>
-                        </div>
+                                       </thead>
+                                        <tbody>
+                                            @foreach ($users as $user)                                      
+                                            <tr>
+                                                <td>{{ $user->name }}</td>
+                                                <td>{{ $user->role }}</td>
+                                                <td>{{ $user->email }}</td>
+                                                <td>{{ $user->created_at }}</td>
+                                                <td>
+                                                    <a href="{{ route('edit-user',$user->id)}}" data-target="#modal-edit-users{{ $user->id }}" id="modal-edit" data-toggle="modal" class="btn btn-primary btn-sm"><i class="fa-solid fa-pen-to-square"></i></a>
+                                                    <a href="{{ route('delete-user',$user->id) }}" onclick="return confirm('Are you sure you want to delete this user?');" class="btn btn-danger btn-sm"><i class="fa fa-trash" aria-hidden="true"></i></a>
+                                                </td>
+                                            </tr>
+                                            @endforeach                                  
+                                        </tbody>
+                                    </table>
+                                </div>
+                           </div>
                     </div>
                 </main>
                 <footer class="py-4 bg-light mt-auto">
@@ -138,5 +137,15 @@
                 </footer>
             </div>
 @endsection()
+@section('script')
+$(document).ready(function() {
+    $('#myTable').DataTable( {
+        dom: 'Bfrtip',
+        buttons: [
+            'copy', 'csv', 'excel', 'pdf', 'print'
+        ]
+    } );
+} );
+@endsection
 
 

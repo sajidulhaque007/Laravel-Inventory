@@ -16,11 +16,12 @@ Route::get('vendor/dashboard', [VendorController::class, 'dashboard'])->name('ve
 Route::post('user/login', [AuthController::class, 'login'])->name('login'); 
 Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
 
-Route::get('/users', [AdminController::class, 'index']);
 Route::post('/unique_email',[AuthController::class, 'unique_email'])->name('unique_email');
+Route::get('/users', [AdminController::class, 'index']);
 Route::post('/adduser',[AdminController::class, 'addUser'])->name('adduser');
 Route::get('edit-user/{id}', [AdminController::class, 'editUser'])->name('edit-user');
 Route::put('update-user/{id}', [AdminController::class, 'updateUser'])->name('update-user');
 Route::get('delete-user/{id}', [AdminController::class, 'deleteUser'])->name('delete-user');
-Route::get('user/search/', [AdminController::class,'search'])->name('search');
-// Route::post('/unique_email','AuthController@unique_email')->name('unique_email');
+
+Route::get('/vendors',[AdminController::class, 'vendor'])->name('vendor');
+
