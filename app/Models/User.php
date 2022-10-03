@@ -42,5 +42,8 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+    public function connect_to_vendor(){
+        return $this->hasMany('App\Models\vendor','id','user_id');
+    }
     
 }

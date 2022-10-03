@@ -106,15 +106,15 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/fomantic-ui/2.8.8/semantic.min.js"></script>
         <script>
             $(document).ready(function() {
-                $('#myTable').DataTable( {
-                    
-                    dom: 'Bfrtip',
+                $('#myTable').DataTable( {                
+                    dom: 'lfBrtip',
                     buttons: [
                         'copy', 'csv', 'excel', 'pdf', 'print'
                     ],
                     
                 } );
-            } );
+                
+            } );     
         </script>
         
     </body>

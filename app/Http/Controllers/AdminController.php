@@ -9,8 +9,10 @@ use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\UserRequest;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Carbon;
+use Intervention\Image\Facades\Image;
 
-use Carbon\Carbon;
+
 
 class AdminController extends Controller
 {
@@ -27,7 +29,8 @@ class AdminController extends Controller
     }
 
     public function dashboard(){
-        $users = DB::table('users')->get();
+        
+        $users = DB::table('users')->where('role','=','user')->get();
             return view('admin.dashboard',[
                 'users'=>$users
             ]);
@@ -43,7 +46,8 @@ class AdminController extends Controller
                 'name' => $request->name,
                 'email' => $request->email,
                 'password' =>Hash::make($request->password),
-                'role' => $request->role
+                'role' => $request->role,
+                'created_at' => Carbon::now()
             ]);
             return back()->with('status','User added successfully');
    }
@@ -69,21 +73,52 @@ class AdminController extends Controller
             
         }
 
+    // DELETE USER
+
         public function deleteUser($id){
             User::find($id)->delete();
             return back()->with('status','User Deleted Successfully');
         }
 
+    
+
         public function vendor(){
             $vendors = Vendor::all();
+            $users = User::all();
+            // $vendors->connect_to_user()->where('role','=', 'vendor')->get();
+            // $vendors = User::where('role','like','vendor')->get();
             return view('vendor.index',[
-                'vendors'=>$vendors
+                'vendors'=>$vendors,
+                'users'=>$users
             ]);
         }
 
-        public function addVendor(){
-            
+        public function storeVendor(){
+
+            return view('vendor.add');
+        }
+
+        public function addVendor(VendorRequest $request){
+
+        $validatedData = $request->validated(); 
+        $vendors = vendor::create([
+            'user_id' => $request->user_id,
+            'date_of_birth' => $request->date_of_birth,
+            'status' => $request->status,
+            'created_at' => Carbon::now()
+        ]);
+        if($request->hasFile('image')){
+            $vendor_image = $request->file('image');
+            $image_name   = $vendors->id.".".$vendor_image->extension();
+            $image_location = base_path('public/uploads/vendor-image/'.$image_name);
+            Image::make($vendor_image)->resize(300,300)->save($image_location,30);
+            $vendors->image = $vendor_image;
+            $vendors->save();
+        }
+        return back()->with('status','Vendor Added Successfuly');
+
     }
+
         public function editVendor(){
 
     }

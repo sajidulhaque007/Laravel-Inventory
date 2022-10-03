@@ -9,7 +9,6 @@ use App\Http\Controllers\VendorController;
 Route::get('/',  function () {
     return view('login');
 })->name('home')->middleware('guest');
-Route::get('/demo',[AdminController::class, 'demoTable']);
 
 Route::get('admin/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
 Route::get('vendor/dashboard', [VendorController::class, 'dashboard'])->name('vendor.dashboard');
@@ -24,6 +23,7 @@ Route::put('update-user/{id}', [AdminController::class, 'updateUser'])->name('up
 Route::get('delete-user/{id}', [AdminController::class, 'deleteUser'])->name('delete-user');
 //Vendor
 Route::get('/vendors',[AdminController::class, 'vendor'])->name('vendor');
+Route::get('/vendor/add',[AdminController::class, 'storeVendor'])->name('store-vendor');
 Route::post('/addvendor',[AdminController::class, 'addVendor'])->name('add-vendor');
 Route::get('/edit-vendor/{id}',[AdminController::class, 'editVendor'])->name('edit-vendor');
 Route::put('/update-vendor/{id}',[AdminController::class, 'updateVendor'])->name('update-vendor');
