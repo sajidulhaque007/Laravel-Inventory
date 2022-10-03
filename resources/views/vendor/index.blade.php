@@ -1,7 +1,7 @@
-    @extends('layouts.backend-master')
+@extends('layouts.backend-master')
 
-    @section('content')
-
+@section('content')
+@php $i =1; @endphp
     <div id="layoutSidenav_content">
                     <main>
                         <div class="container-fluid px-4">
@@ -15,8 +15,8 @@
                                 <li class="breadcrumb-item active">Vendor</li>
                                 {{-- <li class="breadcrumb-item active">Dashboard 2</li>
                                 <li class="breadcrumb-item active">Dashboard 3</li> --}}
-                        </ol>        
-                        <a href="#/addvendor" class="btn btn-primary btn-sm"><i class="fa fa-plus" aria-hidden="true"></i></a> 
+                            </ol>        
+                        <a style ="margin-bottom: 10px;" href="#/addvendor" class="btn btn-info" >Add Vendor</a> 
                         <br>     
                             <div class="card mb-4">
                                 <div class="card-header">
@@ -26,7 +26,8 @@
                                 <div class="card-body">
                                     <table id="myTable" class="mdl-data-table" style="width:100%">
                                         <thead>                                          
-                                            <th>ID</th>
+                                            <th>SL</th>
+                                            <th>Vendor ID</th>
                                             <th>User ID</th>
                                             <th>Name</th>
                                             <th>Role</th>
@@ -38,11 +39,11 @@
                                         <tbody>
                                             @foreach ($vendors as $vendor)                                      
                                             <tr>
+                                                <td>{{ $i++ }}</td>
                                                 <td>{{ $vendor->id }}</td>
                                                 <td>{{ $vendor->user_id }}</td>
                                                 <td>{{ $vendor->connect_to_user->name }}</td>
                                                 <td>{{ $vendor->connect_to_user->role }}</td>
-                                                {{-- <td>{{ App\Models\User::find($vendor->role)->amount }}</td> --}}
                                                 <td>{{ $vendor->connect_to_user->email }}</td>
                                                 <td>{{ \Carbon\Carbon::parse($vendor->date_of_birth)->format('M j Y') }}</td>
                                                 <td>{{ $vendor->status }}</td>
@@ -61,12 +62,12 @@
                                 <div class="card mb-4" id="/addvendor"> 
                                     <div class="card-body">
                                       <h2>Add Vendor</h2>                             
-                                        <form class="form-horizontal" action="">
+                                        <form method="POST" class="form-horizontal" action="{{ route('add-vendor') }}">
                                             @csrf
                                             <div class="form-group">
                                             <label class="control-label col-sm-2">User Name</label>
                                             <div class="col-sm-10">
-                                                <select name="user_id" class="form-control" required>
+                                                <select name="user_id" class="form-control">
                                                     <option value="" >-Select user-</option>
                                                     @foreach ($users as $user)                    
                                                     <option value="{{ $user->id}}">{{ $user->name }}</option>
@@ -77,22 +78,28 @@
                                             <div class="form-group">
                                             <label class="control-label col-sm-2">Date Of Birth:</label>
                                             <div class="col-sm-10">          
-                                                <input type="date" class="form-control" max={{ \Carbon\carbon::now()->format('d-m-Y') }}  name="date_of_birth">
+                                                <input type="date" class="form-control" max={{ \Carbon\carbon::now()->format('Y-m-d') }}  name="date_of_birth">
                                             </div>
                                             </div>
                                             <div class="form-group">        
                                                 <label class="control-label col-sm-2" >Image:</label>
-                                                <input type="file" class="form-control" name="image">
+                                                <div class="col-sm-10">
+
+                                                    <input type="file" class="form-control" name="image">
+                                                </div>
                                             </div>
-                                            <div class="form-group">
-                                                <label name="status">Select Status:</label>
-                                                    <select class="form-control" id="role" name="role">
-                                                        <option value="user">User</option>
-                                                    </select>				
-                                            </div>
+                                                <div class="form-group">
+                                                     <label name="status">Select Status:</label>
+                                                        <div class="col-sm-10">
+                                                            <select class="form-control" id="status" name="status">
+                                                                <option value="active">Active</option>
+                                                                <option value="inactive">Inactive</option>
+                                                            </select>		
+                                                        </div>		
+                                                </div>
                                             <div class="form-group">        
                                             <div class="col-sm-offset-2 col-sm-10">
-                                                <button type="submit" class="btn btn-default">Submit</button>
+                                                <button type="submit" class="btn btn-info">Submit</button>
                                             </div>
                                             </div>
                                         </form>

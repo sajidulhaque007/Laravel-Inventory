@@ -7,6 +7,7 @@ use App\Models\User;
 use App\Models\vendor;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\UserRequest;
+use App\Http\Requests\VendorRequest;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Carbon;
@@ -83,23 +84,21 @@ class AdminController extends Controller
     
 
         public function vendor(){
-            $vendors = Vendor::all();
-            $users = User::all();
-            // $vendors->connect_to_user()->where('role','=', 'vendor')->get();
-            // $vendors = User::where('role','like','vendor')->get();
+            $vendors = Vendor::with('connect_to_user')->whereHas('connect_to_user', function($query){ 
+            return $query->where('role', 'vendor');
+            })->get();
+            $users   = DB::table('users')->where('role','=','user')->get();
             return view('vendor.index',[
                 'vendors'=>$vendors,
                 'users'=>$users
             ]);
         }
 
-        public function storeVendor(){
 
-            return view('vendor.add');
-        }
-
-        public function addVendor(VendorRequest $request){
-
+        public function addVendor(Request $request){
+            
+        return $request;
+            
         $validatedData = $request->validated(); 
         $vendors = vendor::create([
             'user_id' => $request->user_id,

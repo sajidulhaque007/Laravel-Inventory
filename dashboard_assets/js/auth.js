@@ -79,3 +79,4 @@ $('#login').validate({
     
  },
 });
+
