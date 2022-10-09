@@ -31,7 +31,8 @@ class AdminController extends Controller
 
     public function dashboard(){
         
-        $users = DB::table('users')->where('role','=','user')->get();
+        // $users = DB::table('users')->where('role','=','user')->get();
+        $users = DB::table('users')->where('role','=','user')->latest('id')->get();
             return view('admin.dashboard',[
                 'users'=>$users
             ]);
@@ -66,9 +67,12 @@ class AdminController extends Controller
 
         public function updateUser(Request $request, $id){              
             $user = User::find($id);
-            $user->name = $request->input('name');
-            $user->email = $request->input('email');
-            $user->role = $request->input('role');
+            $user->name = is_null($request->name) ? $student->name : $request->name;
+            $user->email = is_null($request->email) ? $student->email : $request->email;
+            $user->role = is_null($request->role) ? $student->role : $request->role;
+            // $user->name = $request->input('name');
+            // $user->email = $request->input('email');
+            // $user->role = $request->input('role');
             $user->update();
             return redirect()->back()->with('status','User Updated Successfully');
             
@@ -87,7 +91,7 @@ class AdminController extends Controller
             $vendors = Vendor::with('connect_to_user')->whereHas('connect_to_user', function($query){ 
             return $query->where('role', 'vendor');
             })->get();
-            $users   = DB::table('users')->where('role','=','user')->get();
+            $users   = DB::table('users')->where('role','=','vendor')->get();
             return view('vendor.index',[
                 'vendors'=>$vendors,
                 'users'=>$users
@@ -95,12 +99,10 @@ class AdminController extends Controller
         }
 
 
-        public function addVendor(Request $request){
-            
-        return $request;
+        public function addVendor(VendorRequest $request){
             
         $validatedData = $request->validated(); 
-        $vendors = vendor::create([
+        $vendors = Vendor::updateOrCreate([
             'user_id' => $request->user_id,
             'date_of_birth' => $request->date_of_birth,
             'status' => $request->status,
@@ -111,10 +113,10 @@ class AdminController extends Controller
             $image_name   = $vendors->id.".".$vendor_image->extension();
             $image_location = base_path('public/uploads/vendor-image/'.$image_name);
             Image::make($vendor_image)->resize(300,300)->save($image_location,30);
-            $vendors->image = $vendor_image;
+            $vendors->image = $image_name;
             $vendors->save();
         }
-        return back()->with('status','Vendor Added Successfuly');
+        return back()->with('status','Vendor Added Successfully');
 
     }
 

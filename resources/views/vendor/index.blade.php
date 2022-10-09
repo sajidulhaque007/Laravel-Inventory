@@ -31,6 +31,7 @@
                                             <th>User ID</th>
                                             <th>Name</th>
                                             <th>Role</th>
+                                            <th>Image</th>
                                             <th>Email</th>
                                             <th>Date Of Birth</th>
                                             <th>Status</th>
@@ -44,6 +45,9 @@
                                                 <td>{{ $vendor->user_id }}</td>
                                                 <td>{{ $vendor->connect_to_user->name }}</td>
                                                 <td>{{ $vendor->connect_to_user->role }}</td>
+                                                <td> 
+                                                    <img width="80"  src="{{ asset('public/uploads/vendor-image') }}/{{ $vendor->image }}" alt="{{ $vendor->image }}">
+                                                </td>
                                                 <td>{{ $vendor->connect_to_user->email }}</td>
                                                 <td>{{ \Carbon\Carbon::parse($vendor->date_of_birth)->format('M j Y') }}</td>
                                                 <td>{{ $vendor->status }}</td>
@@ -62,7 +66,7 @@
                                 <div class="card mb-4" id="/addvendor"> 
                                     <div class="card-body">
                                       <h2>Add Vendor</h2>                             
-                                        <form method="POST" class="form-horizontal" action="{{ route('add-vendor') }}">
+                                        <form method="post" class="form-horizontal" action="{{ route('add-vendor') }}" enctype="multipart/form-data">
                                             @csrf
                                             <div class="form-group">
                                             <label class="control-label col-sm-2">User Name</label>
@@ -73,19 +77,27 @@
                                                     <option value="{{ $user->id}}">{{ $user->name }}</option>
                                                     @endforeach                      
                                                 </select>
+                                                @if($errors->any('user_id'))
+                                                <span class="text-danger">{{$errors->first('user_id')}}</span>
+                                                 @endif
                                             </div>
                                             </div>
                                             <div class="form-group">
                                             <label class="control-label col-sm-2">Date Of Birth:</label>
                                             <div class="col-sm-10">          
-                                                <input type="date" class="form-control" max={{ \Carbon\carbon::now()->format('Y-m-d') }}  name="date_of_birth">
+                                                <input type="date" class="form-control" max={{ \Carbon\carbon::now()->format('Y-m-d') }}  name="date_of_birth" value="{{ old('date_of_birth') }}">
+                                                @if($errors->any('date_of_birth'))
+                                                <span class="text-danger">{{$errors->first('date_of_birth')}}</span>
+                                                 @endif
                                             </div>
                                             </div>
                                             <div class="form-group">        
                                                 <label class="control-label col-sm-2" >Image:</label>
                                                 <div class="col-sm-10">
-
                                                     <input type="file" class="form-control" name="image">
+                                                    @if($errors->any('image'))
+                                                    <span class="text-danger">{{$errors->first('image')}}</span>
+                                                     @endif
                                                 </div>
                                             </div>
                                                 <div class="form-group">
@@ -94,7 +106,10 @@
                                                             <select class="form-control" id="status" name="status">
                                                                 <option value="active">Active</option>
                                                                 <option value="inactive">Inactive</option>
-                                                            </select>		
+                                                            </select>	
+                                                            @if($errors->any('status'))
+                                                            <span class="text-danger">{{$errors->first('status')}}</span>
+                                                             @endif
                                                         </div>		
                                                 </div>
                                             <div class="form-group">        

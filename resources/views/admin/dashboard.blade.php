@@ -75,13 +75,13 @@
                                         <div class="form-group">
                                             <input type="text"  name="email" id="email" value="{{ $user->email }}" class="form-control" placeholder="Email" readonly>	
                                         </div>
-                                        {{-- <div class="form-group">
+                                        <div class="form-group">
                                             <label id="role" name="role" >Select Role:</label>
                                                 <select class="form-control" id="role" name="role">
                                                     <option value="user">User</option>
                                                     <option value="vendor">Vendor</option>
                                                 </select>				
-                                        </div> --}}
+                                        </div>
                                         <div class="modal-footer">
                                             <button type="submit" class="btn btn-primary">Update</button>
                                           </div>

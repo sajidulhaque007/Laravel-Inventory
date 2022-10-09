@@ -19,6 +19,16 @@
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.2/dist/jquery.validate.min.js"></script>
     
     <title>Inventory</title>
+
+    <style>
+      body{
+        background-color: #F0F1F2;
+      }
+      .fixed-bottom{
+        margin-left: 15rem;
+        margin-bottom:10rem;
+      }
+    </style>
   </head>
   <body>
     <div class="container">
@@ -57,7 +67,8 @@
                         <button type="submit" class="btn btn-primary">Login</button>
                     </form>
                     </div>
-                </div>
+                    <div class="fixed-bottom"><img src="{{ asset('dashboard_assets/img/bg.jpg') }}" alt=""></div>
+                  </div>
             </div>
        </div>
     </div>
