@@ -31,11 +31,12 @@ class AdminController extends Controller
 
     public function dashboard(){
         
-        // $users = DB::table('users')->where('role','=','user')->get();
-        $users = DB::table('users')->where('role','=','user')->latest('id')->get();
-            return view('admin.dashboard',[
-                'users'=>$users
-            ]);
+        $users = DB::table('users')->orderBy('id')->paginate();
+            return view('admin.dashboard',compact("users"));
+        // $users = DB::table('users')->where('role','=','user')->latest('id')->get();
+            // return view('admin.dashboard',[
+            //     'users'=>$users
+            // ]);
         return redirect("/")->with('error','Opps! You do not have access');
 
     }

@@ -20,7 +20,7 @@ class UserFactory extends Factory
         return [
             'name' => fake()->name(),
             'email' => fake()->unique()->safeEmail(),
-            'role' => fake()->randomElement(['user' ,'vendor',]),
+            'role' => fake()->randomElement(['user']),
             'email_verified_at' => now(),
             'password' => bcrypt('12121212'),
             'remember_token' => Str::random(10),
