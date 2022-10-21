@@ -10,7 +10,8 @@ Route::get('/',  function () {
     return view('login');
 })->name('home')->middleware('guest');
 
-Route::get('admin/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
+Route::get('admin/dashboard', 'App\Http\Controllers\AdminController@dashboard')->name('admin.dashboard');
+// Route::get('admin/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
 Route::get('vendor/dashboard', [VendorController::class, 'dashboard'])->name('vendor.dashboard');
 Route::post('user/login', [AuthController::class, 'login'])->name('login'); 
 Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
