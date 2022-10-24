@@ -23,6 +23,8 @@ class VendorController extends Controller
     public function dashboard()
 
     {
+        $session_id = session()->getId();
+        return $session_id;
         if(Auth::check()){
             return view('vendor_dashboard');
         }

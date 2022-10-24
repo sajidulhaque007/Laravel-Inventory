@@ -87,6 +87,8 @@ class AdminController extends Controller
     
 
         public function vendor(){
+        //     $session_id = session()->getId();
+        //     return $session_id;
             $vendors = Vendor::with('connect_to_user')->whereHas('connect_to_user', function($query){ 
             return $query->where('role', 'vendor');
             })->get();
