@@ -66,12 +66,9 @@ class AdminController extends Controller
 
         public function updateUser(Request $request, $id){              
             $user = User::find($id);
-            $user->name = is_null($request->name) ? $student->name : $request->name;
-            $user->email = is_null($request->email) ? $student->email : $request->email;
-            $user->role = is_null($request->role) ? $student->role : $request->role;
-            // $user->name = $request->input('name');
-            // $user->email = $request->input('email');
-            // $user->role = $request->input('role');
+            $user->name = is_null($request->name) ? $user->name : $request->name;
+            $user->email = is_null($request->email) ? $user->email : $request->email;
+            $user->role = is_null($request->role) ? $user->role : $request->role;
             $user->update();
             return redirect()->back()->with('status','User Updated Successfully');
             
