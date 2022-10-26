@@ -31,8 +31,4 @@ class VendorController extends Controller
         return redirect("/")->with('error','Opps! You do not have access');
     }
 
-    // public function vendor(){
-    //     $vendors = Vendor::all();
-    //     return view('');
-    // }
 }
