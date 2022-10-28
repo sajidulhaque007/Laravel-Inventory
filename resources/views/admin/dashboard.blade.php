@@ -13,7 +13,7 @@
                         <br>
                         <ol class="breadcrumb mb-4">
                             <li class="breadcrumb-item active">Dashboard</li>
-                      </ol>                       
+                        </ol>                       
                         <a style ="margin-bottom: 10px;"                
                         href="#myModal" class="btn btn-info"  data-toggle="modal">Add User</a>
                         <div id="myModal" class="modal fade">
@@ -92,12 +92,16 @@
                             </div> 
                             @endforeach
                             <div class="card mb-4">
+                                <a style="color:aliceblue;position: absolute;
+                                margin: 4px 130px;" class="btn btn-danger delete_all" data-url="{{ url('delete-all-user') }}">Delete All Selected</a>
                                 <div class="card-header">
-                                    List of all Users
+                                    List of all Users 
                                 </div>
+                                
                                 <div class="card-body">
                                     <table id="myTable" class="ui celled table" style="width:100%">
-                                        <thead>                                          
+                                        <thead>
+                                            <th width="50px"><input type="checkbox" id="master"></th>                                          
                                             <th>SL</th>
                                             <th>Name</th>
                                             <th>Role</th>
@@ -106,8 +110,9 @@
                                             <th>Actions</th>                                       
                                        </thead>
                                         <tbody>
-                                            @foreach ($users as $user)                                      
-                                            <tr>
+                                            @foreach ($users as $key => $user)                                      
+                                            <tr id="tr_{{$user->id}}">
+                                                <td><input type="checkbox" class="sub_chk" data-id="{{$user->id}}"></td>
                                                 <td>{{ $i++ }}</td>
                                                 <td>{{ $user->name }}</td>
                                                 <td>{{ $user->role }}</td>
@@ -138,6 +143,66 @@
                     </div>
                 </footer>
             </div>
+            <script type="text/javascript">
+                $(document).ready(function () {
+                    $('#master').on('click', function(e) {
+                     if($(this).is(':checked',true))  
+                     {
+                        $(".sub_chk").prop('checked', true);  
+                     } else {  
+                        $(".sub_chk").prop('checked',false);  
+                     }  
+                    });
+                    $('.delete_all').on('click', function(e) {
+                        var allVals = [];  
+                        $(".sub_chk:checked").each(function() {  
+                            allVals.push($(this).attr('data-id'));
+                        });  
+                        if(allVals.length <=0)  
+                        {  
+                            alert("Please select row.");  
+                        }  else {  
+                            var check = confirm("Are you sure you want to delete this row?");  
+                            if(check == true){  
+                                var join_selected_values = allVals.join(","); 
+                                $.ajax({
+                                    url: $(this).data('url'),
+                                    type: 'DELETE',
+                                    headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+                                    data: 'ids='+join_selected_values,
+                                    success: function (data) {
+                                        if (data['success']) {
+                                            $(".sub_chk:checked").each(function() {  
+                                                $(this).parents("tr").remove();
+                                            });
+                                            alert(data['success']);
+                                        } else if (data['error']) {
+                                            alert(data['error']);
+                                        } else {
+                                            alert('Whoops Something went wrong--!!');
+                                        }
+                                    },
+                                    error: function (data) {
+                                        alert(data.responseText);
+                                    }
+                                });
+                              $.each(allVals, function( index, value ) {
+                                  $('table tr').filter("[data-row-id='" + value + "']").remove();
+                              });
+                            }  
+                        }  
+                    });
+                    $('[data2-toggle=confirmation]').confirmation({
+                        rootSelector: '[data2-toggle=confirmation]',
+                        onConfirm: function (event, element) {
+                            element.trigger('confirm');
+                        }
+                    });
+                             
+                });          
+            </script>
+            <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-confirmation/1.0.5/bootstrap-confirmation.min.js"></script>
 @endsection()
 
 

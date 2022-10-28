@@ -77,8 +77,17 @@ class AdminController extends Controller
     // DELETE USER
 
         public function deleteUser($id){
-            User::find($id)->delete();
-            return back()->with('status','User Deleted Successfully');
+            // return $id;
+            // DB::table('users')->delete($id);
+            // // return back()->with('status','User Deleted Successfully');
+            // return response()->json(['success'=>"Product Deleted successfully.", 'tr'=>'tr_'.$id]);
+        }
+    // DELETE USERS
+
+        public function deleteAllUser(Request $request){
+            $ids = $request->ids;
+            DB::table('users')->whereIn('id',explode(",",$ids))->delete();
+            return response()->json(['success'=>"Users Deleted successfully."]);
         }
 
     
