@@ -23,14 +23,14 @@ class AdminController extends Controller
      * @return void
      */
     public function __construct()
-    {       
-        $this->middleware('auth');   
+    {
+        $this->middleware('auth');
         $this->middleware('vendor');
-        
+
     }
 
     public function dashboard(){
-        
+
         $users = DB::table('users')->where('role','=','user')->latest('id')->get();
             return view('admin.dashboard',[
                 'users'=>$users
@@ -41,8 +41,8 @@ class AdminController extends Controller
 
     // ADD USER
 
-     public function addUser(UserRequest $request){    
-         $validatedData = $request->validated();        
+     public function addUser(UserRequest $request){
+         $validatedData = $request->validated();
             User::insert([
                 'name' => $request->name,
                 'email' => $request->email,
@@ -55,7 +55,7 @@ class AdminController extends Controller
 
    //EDIT USER
 
-        public function editUser($id){           
+        public function editUser($id){
             $user = User::find($id);
             return view('admin.dashboard',[
                 'user'=>$user
@@ -64,38 +64,39 @@ class AdminController extends Controller
 
    //UPDATE USER
 
-        public function updateUser(Request $request, $id){              
+        public function updateUser(Request $request, $id): \Illuminate\Http\RedirectResponse
+        {
             $user = User::find($id);
             $user->name = is_null($request->name) ? $user->name : $request->name;
             $user->email = is_null($request->email) ? $user->email : $request->email;
             $user->role = is_null($request->role) ? $user->role : $request->role;
             $user->update();
             return redirect()->back()->with('status','User Updated Successfully');
-            
+
         }
 
     // DELETE USER
 
         public function deleteUser($id){
-            // return $id;
-            // DB::table('users')->delete($id);
-            // // return back()->with('status','User Deleted Successfully');
+            return $id;
+            DB::table('users')->delete($id);
+            return back()->with('status','User Deleted Successfully');
             // return response()->json(['success'=>"Product Deleted successfully.", 'tr'=>'tr_'.$id]);
         }
     // DELETE USERS
 
-        public function deleteAllUser(Request $request){
+        public function deleteAllUser(Request $request): \Illuminate\Http\JsonResponse
+        {
             $ids = $request->ids;
             DB::table('users')->whereIn('id',explode(",",$ids))->delete();
             return response()->json(['success'=>"Users Deleted successfully."]);
         }
 
-    
 
-        public function vendor(){
-        //     $session_id = session()->getId();
-        //     return $session_id;
-            $vendors = Vendor::with('connect_to_user')->whereHas('connect_to_user', function($query){ 
+
+        public function vendor(): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Contracts\Foundation\Application
+        {
+            $vendors = Vendor::with('connect_to_user')->whereHas('connect_to_user', function($query){
             return $query->where('role', 'vendor');
             })->get();
             $users   = DB::table('users')->where('role','=','vendor')->get();
@@ -107,8 +108,8 @@ class AdminController extends Controller
 
 
         public function addVendor(VendorRequest $request){
-            
-        $validatedData = $request->validated(); 
+
+        $validatedData = $request->validated();
         $vendors = Vendor::updateOrCreate([
             'user_id' => $request->user_id,
             'date_of_birth' => $request->date_of_birth,

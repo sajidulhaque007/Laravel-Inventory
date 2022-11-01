@@ -25,8 +25,16 @@
         background-color: #F0F1F2;
       }
       .fixed-bottom{
-        margin-left: 15rem;
-        margin-bottom:10rem;
+        position: absolute;
+        left: -500px;
+        top: 280px;
+        box-shadow: 6px 14px 10px #b99e6a;
+      }
+      .fixed-bottom img{ 
+        box-shadow: rgba(0, 0, 0, 0.08) 0px 4px 12px;
+      }
+      .card-head{
+        box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
       }
     </style>
   </head>
@@ -35,7 +43,7 @@
         <div class="row justify-content-md-center">
             <div class="col-md-auto">
                 <h3 class="mt-5" style="margin-left: 5rem;margin-bottom: 2rem;">Inventory System</h3>
-                <div class="card bg-light mb-3"  style="width: 25rem;">
+                <div class="card bg-light mb-3 card-head"  style="width: 25rem;">
                 <div class="card-header" style="padding-left: 9rem;">System Login</div>
                     <div class="card-body">
 
@@ -67,7 +75,7 @@
                         <button type="submit" class="btn btn-primary">Login</button>
                     </form>
                     </div>
-                    <div class="fixed-bottom"><img src="{{ asset('dashboard_assets/img/bg.jpg') }}" alt=""></div>
+                    <div class="fixed-bottom" ><img src="{{ asset('dashboard_assets/img/bg.jpg') }}" alt=""></div>
                   </div>
             </div>
        </div>
