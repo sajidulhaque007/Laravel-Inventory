@@ -81,7 +81,7 @@ class AdminController extends Controller
             return $id;
             DB::table('users')->delete($id);
             return back()->with('status','User Deleted Successfully');
-            // return response()->json(['success'=>"Product Deleted successfully.", 'tr'=>'tr_'.$id]);
+            
         }
     // DELETE USERS
 
