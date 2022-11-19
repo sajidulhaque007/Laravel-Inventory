@@ -128,13 +128,5 @@ class AdminController extends Controller
 
     }
 
-        public function editVendor(){
-
-    }
-        public function updateVendor(){
-
-    }
-        public function deleteVendor(){
-
-    }
+  
 }
