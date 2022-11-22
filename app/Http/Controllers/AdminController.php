@@ -64,7 +64,7 @@ class AdminController extends Controller
 
    //UPDATE USER
 
-        public function updateUser(Request $request, $id): \Illuminate\Http\RedirectResponse
+        public function updateUser(Request $request, $id)
         {
             $user = User::find($id);
             $user->name = is_null($request->name) ? $user->name : $request->name;
@@ -85,7 +85,7 @@ class AdminController extends Controller
         }
     // DELETE USERS
 
-        public function deleteAllUser(Request $request): \Illuminate\Http\JsonResponse
+        public function deleteAllUser(Request $request)
         {
             $ids = $request->ids;
             DB::table('users')->whereIn('id',explode(",",$ids))->delete();
@@ -94,7 +94,7 @@ class AdminController extends Controller
 
 
 
-        public function vendor(): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Contracts\Foundation\Application
+        public function vendor()
         {
             $vendors = Vendor::with('connect_to_user')->whereHas('connect_to_user', function($query){
             return $query->where('role', 'vendor');
