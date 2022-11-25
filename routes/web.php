@@ -22,7 +22,7 @@ Route::post('/adduser',[AdminController::class, 'addUser'])->name('adduser');
 Route::get('edit-user/{id}', [AdminController::class, 'editUser'])->name('edit-user');
 Route::put('update-user/{id}', [AdminController::class, 'updateUser'])->name('update-user');
 Route::get('delete-user/{id}', [AdminController::class, 'deleteUser'])->name('delete-user');
-Route::delete('delete-user/{id}', [AdminController::class, 'deleteUser'])->name('delete-user');
+// Route::delete('delete-user/{id}', [AdminController::class, 'deleteUser'])->name('delete-user');
 Route::delete('delete-all-user', [AdminController::class, 'deleteAllUser'])->name('delete-all-user');
 //Vendor
 Route::get('/vendors',[AdminController::class, 'vendor'])->name('vendor');

@@ -78,7 +78,7 @@ class AdminController extends Controller
     // DELETE USER
 
         public function deleteUser($id){
-            return $id;
+            // return $id;
             DB::table('users')->delete($id);
             return back()->with('status','User Deleted Successfully');
             
@@ -128,5 +128,8 @@ class AdminController extends Controller
 
     }
 
+    public function editVendor($id){
+        return $id;
+    }
   
 }
