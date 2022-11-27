@@ -56,9 +56,9 @@ class AdminController extends Controller
    //EDIT USER
 
         public function editUser($id){
-            $user = User::find($id);
+            $us = User::find($id);
             return view('admin.dashboard',[
-                'user'=>$user
+                // 'user'=>$user
             ]);
         }
 
