@@ -23,15 +23,12 @@ class AuthController extends Controller
             return redirect('admin/dashboard');
         } 
         return redirect("/")->with('error','Email and/or password invalid.');
-        
-
     }
 
     public function logout() {
         Session::flush();
         Auth::logout();
         return Redirect('/');
-
     }
     public function unique_email(Request $request){
     	$user = User::where('email',$request->email)->first();
