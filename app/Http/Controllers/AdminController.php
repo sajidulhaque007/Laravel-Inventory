@@ -53,15 +53,7 @@ class AdminController extends Controller
             return back()->with('status','User added successfully');
    }
 
-   //EDIT USER
-
-        public function editUser($id){
-            $us = User::find($id);
-            return view('admin.dashboard',[
-                // 'user'=>$user
-            ]);
-        }
-
+ 
    //UPDATE USER
 
         public function updateUser(Request $request, $id)
