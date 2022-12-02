@@ -38,9 +38,7 @@ class AdminController extends Controller
         return redirect("/")->with('error','Opps! You do not have access');
 
     }
-
     // ADD USER
-
      public function addUser(UserRequest $request){
          $validatedData = $request->validated();
             User::insert([
@@ -52,7 +50,6 @@ class AdminController extends Controller
             ]);
             return back()->with('status','User added successfully');
    }
-
  
    //UPDATE USER
 
@@ -84,8 +81,6 @@ class AdminController extends Controller
             return response()->json(['success'=>"Users Deleted successfully."]);
         }
 
-
-
         public function vendor()
         {
             $vendors = Vendor::with('connect_to_user')->whereHas('connect_to_user', function($query){
@@ -97,7 +92,6 @@ class AdminController extends Controller
                 'users'=>$users
             ]);
         }
-
 
         public function addVendor(VendorRequest $request){
 
@@ -119,7 +113,6 @@ class AdminController extends Controller
         return back()->with('status','Vendor Added Successfully');
 
     }
-
     public function editVendor($id){
         return $id;
     }
