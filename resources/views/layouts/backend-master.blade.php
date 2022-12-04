@@ -46,7 +46,10 @@
                     <a style="color: black;" class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
                     <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
                         <li><a class="dropdown-item" href="#!">Settings</a></li>
-                        <li><a class="dropdown-item" href="{{ route('logout') }}">Logout</a></li>
+                        <li><a class="dropdown-item" href=""  onclick="event.preventDefault();document.getElementById('logoutForm').submit()">Logout</a></li>
+                        <form action="{{ route('logout') }}" method="POST" id="logoutForm">
+                            @csrf
+                        </form>
                     </ul>
                 </li>
             </ul>

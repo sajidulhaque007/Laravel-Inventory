@@ -119,7 +119,7 @@
                                                 <td>{{ $user->email }}</td>
                                                 <td>{{ $user->created_at }}</td>
                                                 <td>
-                                                    <a href="{{ route('edit-user',$user->id)}}" data-target="#modal-edit-users{{ $user->id }}" id="modal-edit" data-toggle="modal" class="btn btn-primary btn-sm"><i class="fa-solid fa-pen-to-square"></i></a>
+                                                    <a href="" data-target="#modal-edit-users{{ $user->id }}" id="modal-edit" data-toggle="modal" class="btn btn-primary btn-sm"><i class="fa-solid fa-pen-to-square"></i></a>
                                                     <a href="{{ route('delete-user',$user->id) }}" onclick="return confirm('Are you sure you want to delete this user?');" class="btn btn-danger btn-sm"><i class="fa fa-trash" aria-hidden="true"></i></a>
                                                 </td>
                                             </tr>

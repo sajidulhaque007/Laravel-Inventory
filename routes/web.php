@@ -14,7 +14,7 @@ Route::get('/',  function () {
 Route::get('admin/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
 Route::get('vendor/dashboard', [VendorController::class, 'dashboard'])->name('vendor.dashboard');
 Route::post('user/login', [AuthController::class, 'login'])->name('login'); 
-Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
+Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 //User
 Route::post('/unique_email',[AuthController::class, 'unique_email'])->name('unique_email');
 Route::get('/users', [AdminController::class, 'index']);
